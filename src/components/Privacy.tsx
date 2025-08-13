@@ -9,7 +9,29 @@ const Privacy: React.FC<PrivacyProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div style={{
+    <>
+      <style>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.6), rgba(0, 170, 255, 0.8));
+          border-radius: 4px;
+          transition: all 0.3s ease;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, rgba(0, 212, 255, 0.8), rgba(0, 170, 255, 1));
+          transform: scaleY(1.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar-corner {
+          background: transparent;
+        }
+      `}</style>
+      <div style={{
       position: 'fixed',
       top: 0,
       left: 0,
@@ -24,17 +46,22 @@ const Privacy: React.FC<PrivacyProps> = ({ isOpen, onClose }) => {
       padding: '2rem',
       overflowY: 'auto'
     }}>
-      <div style={{
-        background: 'var(--color-background-secondary)',
-        border: '1px solid rgba(255, 255, 255, 0.1)',
-        borderRadius: '20px',
-        maxWidth: '800px',
-        width: '100%',
-        maxHeight: '90vh',
-        overflowY: 'auto',
-        position: 'relative',
-        boxShadow: '0 25px 50px rgba(0, 212, 255, 0.2)'
-      }}>
+      <div 
+        className="custom-scrollbar"
+        style={{
+          background: 'var(--color-background-secondary)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          borderRadius: '20px',
+          maxWidth: '800px',
+          width: '100%',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          position: 'relative',
+          boxShadow: '0 25px 50px rgba(0, 212, 255, 0.2)',
+          scrollBehavior: 'smooth',
+          scrollbarWidth: 'thin',
+          scrollbarColor: 'rgba(0, 212, 255, 0.5) rgba(255, 255, 255, 0.1)'
+        }}>
         {/* Header */}
         <div style={{
           padding: '2rem 2rem 1rem',
@@ -421,6 +448,7 @@ const Privacy: React.FC<PrivacyProps> = ({ isOpen, onClose }) => {
         onClick={onClose}
       />
     </div>
+    </>
   );
 };
 
