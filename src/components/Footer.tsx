@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onPrivacyClick?: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
   return (
     <footer id="contact" style={{ 
       background: 'linear-gradient(135deg, var(--color-background-tertiary) 0%, var(--color-background) 100%)',
@@ -318,15 +322,20 @@ const Footer: React.FC = () => {
           </p>
           <div style={{ display: 'flex', gap: '2rem' }}>
             {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (
-              <a key={index} href="#" style={{ 
-                color: 'var(--color-text-secondary)',
-                textDecoration: 'none',
-                fontSize: '0.9rem',
-                transition: 'color 0.3s ease',
-                fontWeight: '500'
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
-              onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
+              <a 
+                key={index} 
+                href={item === 'Privacy Policy' ? undefined : "#"}
+                onClick={item === 'Privacy Policy' ? (e) => { e.preventDefault(); onPrivacyClick?.(); } : undefined}
+                style={{ 
+                  color: 'var(--color-text-secondary)',
+                  textDecoration: 'none',
+                  fontSize: '0.9rem',
+                  transition: 'color 0.3s ease',
+                  fontWeight: '500',
+                  cursor: 'pointer'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
+                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
               >
                 {item}
               </a>
