@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
 
           <h1 className="hero-title">
             Build the future with{' '}
-            <span className="gradient-text">Orion AI</span>
+            <span className="gradient-text">Orion</span>
           </h1>
           
           <p className="hero-subtitle">

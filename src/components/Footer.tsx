@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent)' }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <a href="mailto:hello@orion.ai" style={{ 
+                <a href="mailto:info@orion.sa" style={{
                   color: 'var(--color-text-secondary)',
                   textDecoration: 'none',
                   transition: 'all 0.3s ease',
@@ -93,15 +93,8 @@ const Footer: React.FC = () => {
                   e.currentTarget.style.transform = 'translateX(0)';
                 }}
                 >
-                  hello@orion.ai
+                  info@orion.sa
                 </a>
-              </div>
-              
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-accent)' }}><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-                <span style={{ color: 'var(--color-text-secondary)', fontWeight: '500' }}>
-                  Global AI Solutions
-                </span>
               </div>
             </div>
 
@@ -321,7 +314,7 @@ const Footer: React.FC = () => {
             gap: '0.5rem'
           }}>
             <span style={{ fontSize: '1.1rem' }}>⚡</span>
-            © 2025 Orion AI. All rights reserved. Building tomorrow's intelligence today.
+            © 2025 Orion Technologies. All rights reserved.
           </p>
           <div style={{ display: 'flex', gap: '2rem' }}>
             {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (
