@@ -2,9 +2,10 @@ import React from 'react';
 
 interface FooterProps {
   onPrivacyClick?: () => void;
+  onTermsClick?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
+const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
   return (
     <footer id="contact" style={{ 
       background: 'linear-gradient(135deg, var(--color-background-tertiary) 0%, var(--color-background) 100%)',
@@ -324,8 +325,12 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick }) => {
             {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (
               <a 
                 key={index} 
-                href={item === 'Privacy Policy' ? undefined : "#"}
-                onClick={item === 'Privacy Policy' ? (e) => { e.preventDefault(); onPrivacyClick?.(); } : undefined}
+                href={item === 'Privacy Policy' || item === 'Terms of Service' ? undefined : "#"}
+                onClick={
+                  item === 'Privacy Policy' ? (e) => { e.preventDefault(); onPrivacyClick?.(); } :
+                  item === 'Terms of Service' ? (e) => { e.preventDefault(); onTermsClick?.(); } :
+                  undefined
+                }
                 style={{ 
                   color: 'var(--color-text-secondary)',
                   textDecoration: 'none',

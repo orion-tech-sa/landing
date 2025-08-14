@@ -19,7 +19,7 @@ function App() {
       <About />
       <Services />
       <Innovation />
-      <Footer onPrivacyClick={() => setIsPrivacyOpen(true)} />
+      <Footer onPrivacyClick={() => setIsPrivacyOpen(true)} onTermsClick={() => setIsTermsOpen(true)} />
       <Privacy isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
       <Terms isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </div>

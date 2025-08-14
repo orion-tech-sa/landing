@@ -83,7 +83,7 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                 marginBottom: '0.5rem',
                                 letterSpacing: '-0.02em'
                             }}>
-                                Privacy Policy
+                                Terms and Conditions
                             </h1>
                             <p style={{
                                 color: 'var(--color-text-secondary)',
@@ -133,13 +133,13 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                 fontSize: '1.1rem',
                                 marginBottom: '1.5rem'
                             }}>
-                                At Orion Technologies ("we," "our," or "us"), we are committed to protecting your privacy and
-                                ensuring the security of your personal information. This Privacy Policy explains how we collect,
-                                use, disclose, and safeguard your information when you use our AI platform and services.
+                                Welcome to Orion Technologies ("we," "our," or "us"). These Terms and Conditions ("Terms") 
+                                govern your use of our AI platform and services. By accessing or using our services, you agree 
+                                to be bound by these Terms and our Privacy Policy.
                             </p>
                         </section>
 
-                        {/* Information We Collect */}
+                        {/* Service Agreement */}
                         <section style={{ marginBottom: '3rem' }}>
                             <h2 style={{
                                 fontSize: '1.5rem',
@@ -155,8 +155,8 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                   borderRadius: '8px',
                   padding: '0.5rem',
                   fontSize: '1rem'
-              }}>📊</span>
-                                Information We Collect
+              }}>📋</span>
+                                Service Agreement
                             </h2>
 
                             <div style={{ marginBottom: '2rem' }}>
@@ -166,7 +166,7 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                     color: 'var(--color-text-primary)',
                                     marginBottom: '1rem'
                                 }}>
-                                    Personal Information
+                                    Acceptance of Terms
                                 </h3>
                                 <ul style={{
                                     color: 'var(--color-text-secondary)',
@@ -174,11 +174,11 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                     paddingLeft: '1.5rem',
                                     marginBottom: '1.5rem'
                                 }}>
-                                    <li>Contact information (name, email address, phone number)</li>
-                                    <li>Account credentials and authentication data</li>
-                                    <li>Company information and job title</li>
-                                    <li>Payment and billing information</li>
-                                    <li>Communication preferences</li>
+                                    <li>By using our AI platform, you accept these Terms in full</li>
+                                    <li>You must be at least 18 years old to use our services</li>
+                                    <li>You represent that you have authority to bind your organization</li>
+                                    <li>These Terms may be updated periodically with notice</li>
+                                    <li>Continued use after updates constitutes acceptance</li>
                                 </ul>
                             </div>
 
@@ -189,23 +189,23 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                     color: 'var(--color-text-primary)',
                                     marginBottom: '1rem'
                                 }}>
-                                    Usage and Technical Data
+                                    Account Responsibilities
                                 </h3>
                                 <ul style={{
                                     color: 'var(--color-text-secondary)',
                                     lineHeight: '1.7',
                                     paddingLeft: '1.5rem'
                                 }}>
-                                    <li>Platform usage statistics and interaction patterns</li>
-                                    <li>Device information and browser characteristics</li>
-                                    <li>IP addresses and geolocation data</li>
-                                    <li>Cookies and similar tracking technologies</li>
-                                    <li>Performance metrics and error logs</li>
+                                    <li>Maintain secure account credentials and authentication</li>
+                                    <li>Provide accurate registration and billing information</li>
+                                    <li>Notify us immediately of any unauthorized access</li>
+                                    <li>Comply with usage limits and fair use policies</li>
+                                    <li>Use services only for lawful business purposes</li>
                                 </ul>
                             </div>
                         </section>
 
-                        {/* How We Use Information */}
+                        {/* Service Usage and Restrictions */}
                         <section style={{ marginBottom: '3rem' }}>
                             <h2 style={{
                                 fontSize: '1.5rem',
@@ -222,7 +222,7 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                   padding: '0.5rem',
                   fontSize: '1rem'
               }}>⚡</span>
-                                How We Use Your Information
+                                Service Usage and Restrictions
                             </h2>
 
                             <ul style={{
@@ -230,14 +230,14 @@ const Terms: React.FC<TermsProps> = ({ isOpen, onClose }) => {
                                 lineHeight: '1.7',
                                 paddingLeft: '1.5rem'
                             }}>
-                                <li>Provide, maintain, and improve our AI services and platform</li>
-                                <li>Process transactions and manage your account</li>
-                                <li>Deliver customer support and technical assistance</li>
-                                <li>Send important updates, security alerts, and service notifications</li>
-                                <li>Analyze usage patterns to enhance user experience</li>
-                                <li>Conduct research and development for new AI capabilities</li>
-                                <li>Comply with legal obligations and enforce our terms of service</li>
-                                <li>Prevent fraud, security breaches, and other harmful activities</li>
+                                <li>Use our AI platform only for legitimate business purposes</li>
+                                <li>Comply with all applicable laws and regulations</li>
+                                <li>Do not attempt to reverse engineer or copy our technology</li>
+                                <li>Respect intellectual property rights of Orion and third parties</li>
+                                <li>Do not use services to generate harmful, illegal, or malicious content</li>
+                                <li>Maintain reasonable usage levels as defined in your service plan</li>
+                                <li>Do not share account credentials or allow unauthorized access</li>
+                                <li>Report security vulnerabilities or suspicious activities promptly</li>
                             </ul>
                         </section>
 
