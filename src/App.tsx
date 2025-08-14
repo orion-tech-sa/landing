@@ -6,9 +6,11 @@ import Services from './components/Services';
 import Innovation from './components/Innovation';
 import Footer from './components/Footer';
 import Privacy from './components/Privacy';
+import Terms from "./components/Terms.tsx";
 
 function App() {
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
 
   return (
     <div className="App">
@@ -19,6 +21,7 @@ function App() {
       <Innovation />
       <Footer onPrivacyClick={() => setIsPrivacyOpen(true)} />
       <Privacy isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
+      <Terms isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
     </div>
   );
 }
