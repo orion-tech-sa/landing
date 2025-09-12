@@ -41,35 +41,14 @@ const Header: React.FC = () => {
           <div className="logo-container" style={{ 
             display: 'flex', 
             alignItems: 'center', 
-            gap: '0.75rem',
             cursor: 'pointer'
           }}
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
-            <div className="logo-icon" style={{
-              width: '40px',
-              height: '40px',
-              background: 'var(--color-gradient-primary)',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              boxShadow: '0 8px 25px rgba(0, 212, 255, 0.3)',
-              transition: 'all 0.3s ease'
-            }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
-              </svg>
-            </div>
             <span style={{ 
               fontSize: '1.5rem', 
               fontWeight: '800',
-              background: 'var(--color-gradient-primary)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
+              color: '#ffffff',
               letterSpacing: '-0.02em'
             }}>
               ORION

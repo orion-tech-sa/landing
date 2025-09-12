@@ -252,7 +252,7 @@ const Innovation: React.FC = () => {
                   fontWeight: '800',
                   color: stat.color,
                   marginBottom: '0.5rem',
-                  fontFamily: 'JetBrains Mono, monospace'
+                  fontFamily: 'Space Grotesk, sans-serif'
                 }}>
                   {stat.number}
                 </div>
