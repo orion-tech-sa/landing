@@ -530,10 +530,10 @@ const Hero: React.FC = () => {
 
         @media (max-width: 480px) {
           .orion-logo-container {
-            width: 90vw !important;
+            width: 94vw !important;
             height: auto !important;
-            max-width: 350px !important;
-            margin-bottom: 1rem !important;
+            max-width: 520px !important;
+            margin-bottom: 1.25rem !important;
           }
           
           .hero-cta-primary, .hero-cta-secondary {
@@ -545,6 +545,8 @@ const Hero: React.FC = () => {
           
           .hero-title {
             font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+            letter-spacing: -0.01em !important;
+            text-shadow: 0 0 30px rgba(29, 78, 216, 0.35) !important;
           }
           
           .hero-subtitle {
@@ -558,9 +560,10 @@ const Hero: React.FC = () => {
           }
           
           .hero-content {
-            min-height: 100vh !important;
-            justify-content: flex-start !important;
-            padding-top: 2rem !important;
+            min-height: 100svh !important;
+            justify-content: center !important;
+            padding-top: 0 !important;
+            padding-bottom: 2rem !important;
           }
           
           .container {
