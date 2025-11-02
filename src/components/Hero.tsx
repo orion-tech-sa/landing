@@ -36,9 +36,6 @@ const Hero: React.FC = () => {
     }));
   }, []);
 
-  // Mount flag for gentle entrance animation on subtitle
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
 
   return (
     <section className="hero-section">
