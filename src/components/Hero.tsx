@@ -4,6 +4,11 @@ const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    // Center the interactive gradient on first paint (helps touch devices)
+    try {
+      setMousePosition({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+    } catch {}
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -11,6 +16,29 @@ const Hero: React.FC = () => {
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Generate particle positions once to avoid layout shifts on re-render/refresh
+  const particles = React.useMemo(() => {
+    let count = 24;
+    try {
+      const w = window.innerWidth;
+      if (w < 480) count = 12;
+      else if (w < 768) count = 16;
+    } catch {}
+    return Array.from({ length: count }).map((_, i) => ({
+      id: i,
+      size: Math.random() * 3 + 2,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: Math.random() * 4 + 6,
+      delay: Math.random() * 3,
+      opacity: Math.random() * 0.8 + 0.2
+    }));
+  }, []);
+
+  // Mount flag for gentle entrance animation on subtitle
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   return (
     <section className="hero-section">
@@ -45,7 +73,7 @@ const Hero: React.FC = () => {
           flexDirection: 'column', 
           alignItems: 'center', 
           textAlign: 'center',
-          minHeight: '100vh',
+          minHeight: '100svh',
           justifyContent: 'center',
           paddingTop: '2rem',
           paddingBottom: '2rem'
@@ -55,13 +83,12 @@ const Hero: React.FC = () => {
           <div className="orion-logo-container" style={{
             position: 'relative',
             marginBottom: '3rem',
-            width: '3150px',
-            height: '1400px',
-            maxWidth: '95vw',
+            width: 'min(900px, 92vw)',
+            aspectRatio: '16 / 7',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            filter: 'drop-shadow(0 0 60px rgba(29, 78, 216, 0.8))'
+            filter: 'drop-shadow(0 0 40px rgba(29, 78, 216, 0.6))'
           }}>
             <img 
               src="/orion-logo.png" 
@@ -118,17 +145,7 @@ const Hero: React.FC = () => {
               The Future of Intelligence
             </h1>
             
-            <p className="hero-subtitle" style={{
-              fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-              maxWidth: '800px',
-              margin: '0 auto 2rem',
-              color: 'rgba(255, 255, 255, 0.9)',
-              lineHeight: 1.6,
-              fontWeight: 300
-            }}>
-              Orion revolutionizes how you interact with data and artificial intelligence. 
-              Experience unprecedented power, precision, and possibilities in every solution we craft.
-            </p>
+            {/* Subtitle moved to its own second section for clarity and layout stability */}
           </div>
 
           {/* Enhanced CTA buttons */}
@@ -138,77 +155,40 @@ const Hero: React.FC = () => {
             justifyContent: 'center',
             alignItems: 'center',
             flexWrap: 'wrap',
-            marginBottom: '4rem'
+            marginBottom: '2rem'
           }}>
-            <a href="#contact" className="btn btn-primary hero-cta-primary">
+            {/*<a href="#contact" className="btn btn-primary hero-cta-primary">
               <span>Launch Your Journey</span>
               <span style={{ marginLeft: '0.8rem', fontSize: '1.2rem' }}>🚀</span>
-            </a>
-            <a href="#about" className="btn btn-secondary hero-cta-secondary">
-              <span>Discover Orion</span>
-              <span style={{ marginLeft: '0.8rem' }}>✨</span>
-            </a>
+            </a>*/}
           </div>
 
-          {/* Innovation highlights */}
-          <div className="hero-innovations" style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem',
-            maxWidth: '1000px',
-            width: '100%',
-            margin: '0 auto'
-          }}>
-            {[
-              { 
-                icon: '🧠',
-                title: 'Neural Intelligence',
-                description: 'Advanced AI that thinks, learns, and evolves with your needs'
-              },
-              { 
-                icon: '⚡',
-                title: 'Quantum Speed',
-                description: 'Lightning-fast processing that redefines performance standards'
-              },
-              { 
-                icon: '🔮',
-                title: 'Predictive Vision',
-                description: 'Foresight capabilities that anticipate tomorrow\'s challenges today'
-              }
-            ].map((innovation, index) => (
-              <div key={index} className="innovation-card" style={{
-                background: 'rgba(29, 78, 216, 0.1)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(29, 78, 216, 0.2)',
-                borderRadius: '16px',
-                padding: '2rem',
-                textAlign: 'center',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer'
-              }}>
-                <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{innovation.icon}</div>
-                <h3 style={{ 
-                  fontSize: '1.3rem', 
-                  fontWeight: 600, 
-                  marginBottom: '0.8rem',
-                  color: '#ffffff'
-                }}>
-                  {innovation.title}
-                </h3>
-                <p style={{ 
-                  color: 'rgba(255, 255, 255, 0.7)',
-                  lineHeight: 1.5,
-                  fontSize: '0.95rem'
-                }}>
-                  {innovation.description}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
+
+      {/* Subtle scroll indicator to highlight there is a second section */}
+      <a
+        href="#intro"
+        className="scroll-indicator"
+        aria-label="Scroll to introduction"
+        style={{
+          position: 'absolute',
+          left: '50%',
+          bottom: '24px',
+          transform: 'translateX(-50%)',
+          zIndex: 4,
+          color: 'rgba(255,255,255,0.8)',
+          textDecoration: 'none',
+          padding: '10px 14px',
+          borderRadius: '999px',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)'
+        }}
+      >
+        <span style={{ fontSize: '1.5rem', display: 'inline-block' }}>▾</span>
+      </a>
       
-      {/* Floating light particles */}
+      {/* Floating light particles (stable across renders) */}
       <div className="particles-container" style={{
         position: 'absolute',
         top: 0,
@@ -219,21 +199,21 @@ const Hero: React.FC = () => {
         overflow: 'hidden',
         zIndex: 2
       }}>
-        {[...Array(30)].map((_, i) => (
+        {particles.map(p => (
           <div
-            key={i}
+            key={p.id}
             className="particle"
             style={{
               position: 'absolute',
-              width: Math.random() * 3 + 2 + 'px',
-              height: Math.random() * 3 + 2 + 'px',
+              width: `${p.size}px`,
+              height: `${p.size}px`,
               background: 'rgba(15, 30, 85, 0.6)',
               borderRadius: '50%',
-              left: Math.random() * 100 + '%',
-              top: Math.random() * 100 + '%',
-              animation: `float ${Math.random() * 4 + 6}s ease-in-out infinite`,
-              animationDelay: Math.random() * 3 + 's',
-              opacity: Math.random() * 0.8 + 0.2,
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+              animation: `float ${p.duration}s ease-in-out infinite`,
+              animationDelay: `${p.delay}s`,
+              opacity: p.opacity,
               boxShadow: `0 0 20px rgba(15, 30, 85, 0.8)`
             }}
           />
@@ -244,9 +224,12 @@ const Hero: React.FC = () => {
       <style>{`
         .hero-section {
           position: relative;
-          min-height: 100vh;
+          min-height: 100vh; /* fallback */
+          min-height: 100svh; /* modern mobile browsers */
+          min-height: 100dvh; /* dynamic viewport for iOS/Android */
           background: linear-gradient(135deg, #000000 0%, #050510 50%, #0a0a1a 100%);
           overflow: hidden;
+          padding-bottom: max(24px, env(safe-area-inset-bottom));
         }
 
         .hero-atmosphere {
@@ -466,6 +449,20 @@ const Hero: React.FC = () => {
 
         .particle {
           filter: blur(0.5px);
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+          .cosmic-glow,
+          .nebula-layer,
+          .particle,
+          .smoke-layer-1,
+          .smoke-layer-2,
+          .smoke-layer-3,
+          .side-smoke-left,
+          .side-smoke-right {
+            animation: none !important;
+          }
         }
 
         /* Mobile optimizations */
