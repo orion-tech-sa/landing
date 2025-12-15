@@ -8,25 +8,37 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
   return (
     <footer id="contact" style={{ 
-      background: 'linear-gradient(135deg, var(--color-background-tertiary) 0%, var(--color-background) 100%)',
+      // Match atmospheric dark/translucent style used in Header/Hero
+      background: 'rgba(0, 0, 0, 0.6)',
+      backdropFilter: 'blur(20px)',
+      WebkitBackdropFilter: 'blur(20px)',
       borderTop: '1px solid rgba(255, 255, 255, 0.1)',
       padding: '6rem 0 2rem',
       position: 'relative',
       overflow: 'hidden'
     }}>
 
-      {/* Background Pattern */}
+      {/* Atmospheric Background (aligned with Hero) */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        backgroundImage: `
+          radial-gradient(800px 400px at 10% 20%, rgba(15, 30, 85, 0.25), transparent 60%),
+          radial-gradient(600px 300px at 90% 80%, rgba(25, 40, 95, 0.2), transparent 60%),
+          radial-gradient(circle at 50% -10%, rgba(29, 78, 216, 0.18), transparent 55%)
+        `,
+        pointerEvents: 'none',
+        zIndex: 0
+      }} />
+      {/* Subtle top glow similar to Header bottom border effect */}
       <div style={{
         position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
-        backgroundImage: `
-          radial-gradient(circle at 10% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
-          radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 50%)
-        `,
-        pointerEvents: 'none'
+        height: '1px',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)',
+        opacity: 0.6
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 2 }}>
@@ -40,31 +52,18 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
           {/* Company Info */}
           <div style={{ gridColumn: 'span 2' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-              <div style={{
-                width: '48px',
-                height: '48px',
-                background: 'var(--color-gradient-primary)',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                boxShadow: '0 8px 25px rgba(0, 212, 255, 0.3)'
-              }}>
-                ⚡
-              </div>
-              <span style={{ 
-                fontSize: '1.8rem', 
-                fontWeight: '800',
-                background: 'var(--color-gradient-primary)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                letterSpacing: '-0.02em'
-              }}>
-                ORION
-              </span>
+              {/* Use the trimmed SVG with tight bounds to avoid extra padding */}
+              <img 
+                src="/orion-logo-trimmed.svg" 
+                alt="Orion Logo" 
+                style={{
+                  // Responsive size: smaller on mobile, larger on desktop
+                  height: 'clamp(40px, 12vw, 50px)',
+                  width: 'auto',
+                  display: 'block',
+                  filter: 'drop-shadow(0 0 20px rgba(29, 78, 216, 0.45))'
+                }}
+              />
             </div>
             
             <p style={{ 
