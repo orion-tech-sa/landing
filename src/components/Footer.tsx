@@ -5,7 +5,7 @@ interface FooterProps {
   onTermsClick?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
+const Footer: React.FC<FooterProps> = () => {
   return (
     <footer id="contact" style={{ 
       // Match atmospheric dark/translucent style used in Header/Hero
@@ -151,148 +151,148 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
             </div>
           </div>
 
-          {/* Solutions */}
-          <div>
-            <h4 style={{ 
-              color: 'var(--color-text-primary)',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              marginBottom: '2rem',
-              letterSpacing: '-0.01em'
-            }}>
-              Solutions
-            </h4>
-            <ul style={{ 
-              listStyle: 'none',
-              padding: 0,
-              color: 'var(--color-text-secondary)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem'
-            }}>
-              {[
-                'Neural AI Systems',
-                'Quantum Analytics',
-                'Cloud Infrastructure',
-                'Enterprise Security',
-                'Custom Development'
-              ].map((item, index) => (
-                <li key={index}>
-                  <a href="#services" style={{ 
-                    color: 'var(--color-text-secondary)',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontWeight: '500'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--color-text-primary)';
-                    e.currentTarget.style.transform = 'translateX(5px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--color-text-secondary)';
-                    e.currentTarget.style.transform = 'translateX(0)';
-                  }}
-                  >
-                    <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>→</span>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/*/!* Solutions *!/*/}
+          {/*<div>*/}
+          {/*  <h4 style={{ */}
+          {/*    color: 'var(--color-text-primary)',*/}
+          {/*    fontSize: '1.2rem',*/}
+          {/*    fontWeight: '700',*/}
+          {/*    marginBottom: '2rem',*/}
+          {/*    letterSpacing: '-0.01em'*/}
+          {/*  }}>*/}
+          {/*    Solutions*/}
+          {/*  </h4>*/}
+          {/*  <ul style={{ */}
+          {/*    listStyle: 'none',*/}
+          {/*    padding: 0,*/}
+          {/*    color: 'var(--color-text-secondary)',*/}
+          {/*    display: 'flex',*/}
+          {/*    flexDirection: 'column',*/}
+          {/*    gap: '1rem'*/}
+          {/*  }}>*/}
+          {/*    {[*/}
+          {/*      'Neural AI Systems',*/}
+          {/*      'Quantum Analytics',*/}
+          {/*      'Cloud Infrastructure',*/}
+          {/*      'Enterprise Security',*/}
+          {/*      'Custom Development'*/}
+          {/*    ].map((item, index) => (*/}
+          {/*      <li key={index}>*/}
+          {/*        <a href="#services" style={{ */}
+          {/*          color: 'var(--color-text-secondary)',*/}
+          {/*          textDecoration: 'none',*/}
+          {/*          transition: 'all 0.3s ease',*/}
+          {/*          display: 'flex',*/}
+          {/*          alignItems: 'center',*/}
+          {/*          gap: '0.5rem',*/}
+          {/*          fontWeight: '500'*/}
+          {/*        }}*/}
+          {/*        onMouseEnter={(e) => {*/}
+          {/*          e.currentTarget.style.color = 'var(--color-text-primary)';*/}
+          {/*          e.currentTarget.style.transform = 'translateX(5px)';*/}
+          {/*        }}*/}
+          {/*        onMouseLeave={(e) => {*/}
+          {/*          e.currentTarget.style.color = 'var(--color-text-secondary)';*/}
+          {/*          e.currentTarget.style.transform = 'translateX(0)';*/}
+          {/*        }}*/}
+          {/*        >*/}
+          {/*          <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>→</span>*/}
+          {/*          {item}*/}
+          {/*        </a>*/}
+          {/*      </li>*/}
+          {/*    ))}*/}
+          {/*  </ul>*/}
+          {/*</div>*/}
 
-          {/* Company */}
-          <div>
-            <h4 style={{ 
-              color: 'var(--color-text-primary)',
-              fontSize: '1.2rem',
-              fontWeight: '700',
-              marginBottom: '2rem',
-              letterSpacing: '-0.01em'
-            }}>
-              Company
-            </h4>
-            <ul style={{ 
-              listStyle: 'none',
-              padding: 0,
-              color: 'var(--color-text-secondary)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem'
-            }}>
-              {[
-                'About Us',
-                'Careers',
-                'News & Blog',
-                'Case Studies',
-                'Contact'
-              ].map((item, index) => (
-                <li key={index}>
-                  <a href="#about" style={{ 
-                    color: 'var(--color-text-secondary)',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    fontWeight: '500'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = 'var(--color-text-primary)';
-                    e.currentTarget.style.transform = 'translateX(5px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--color-text-secondary)';
-                    e.currentTarget.style.transform = 'translateX(0)';
-                  }}
-                  >
-                    <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>→</span>
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/*/!* Company *!/*/}
+          {/*<div>*/}
+          {/*  <h4 style={{ */}
+          {/*    color: 'var(--color-text-primary)',*/}
+          {/*    fontSize: '1.2rem',*/}
+          {/*    fontWeight: '700',*/}
+          {/*    marginBottom: '2rem',*/}
+          {/*    letterSpacing: '-0.01em'*/}
+          {/*  }}>*/}
+          {/*    Company*/}
+          {/*  </h4>*/}
+          {/*  <ul style={{ */}
+          {/*    listStyle: 'none',*/}
+          {/*    padding: 0,*/}
+          {/*    color: 'var(--color-text-secondary)',*/}
+          {/*    display: 'flex',*/}
+          {/*    flexDirection: 'column',*/}
+          {/*    gap: '1rem'*/}
+          {/*  }}>*/}
+          {/*    {[*/}
+          {/*      'About Us',*/}
+          {/*      'Careers',*/}
+          {/*      'News & Blog',*/}
+          {/*      'Case Studies',*/}
+          {/*      'Contact'*/}
+          {/*    ].map((item, index) => (*/}
+          {/*      <li key={index}>*/}
+          {/*        <a href="#about" style={{ */}
+          {/*          color: 'var(--color-text-secondary)',*/}
+          {/*          textDecoration: 'none',*/}
+          {/*          transition: 'all 0.3s ease',*/}
+          {/*          display: 'flex',*/}
+          {/*          alignItems: 'center',*/}
+          {/*          gap: '0.5rem',*/}
+          {/*          fontWeight: '500'*/}
+          {/*        }}*/}
+          {/*        onMouseEnter={(e) => {*/}
+          {/*          e.currentTarget.style.color = 'var(--color-text-primary)';*/}
+          {/*          e.currentTarget.style.transform = 'translateX(5px)';*/}
+          {/*        }}*/}
+          {/*        onMouseLeave={(e) => {*/}
+          {/*          e.currentTarget.style.color = 'var(--color-text-secondary)';*/}
+          {/*          e.currentTarget.style.transform = 'translateX(0)';*/}
+          {/*        }}*/}
+          {/*        >*/}
+          {/*          <span style={{ fontSize: '0.8rem', opacity: 0.7 }}>→</span>*/}
+          {/*          {item}*/}
+          {/*        </a>*/}
+          {/*      </li>*/}
+          {/*    ))}*/}
+          {/*  </ul>*/}
+          {/*</div>*/}
         </div>
 
         {/* CTA Section */}
-        <div style={{ 
-          background: 'rgba(0, 212, 255, 0.05)',
-          border: '1px solid rgba(0, 212, 255, 0.1)',
-          borderRadius: '20px',
-          padding: '3rem 2rem',
-          textAlign: 'center',
-          marginBottom: '4rem'
-        }}>
-          <h3 style={{
-            fontSize: '1.8rem',
-            fontWeight: '700',
-            marginBottom: '1rem',
-            color: 'var(--color-text-primary)'
-          }}>
-            Ready to build the future?
-          </h3>
-          <p style={{
-            fontSize: '1.1rem',
-            color: 'var(--color-text-secondary)',
-            marginBottom: '2rem',
-            maxWidth: '500px',
-            margin: '0 auto 2rem'
-          }}>
-            Join the AI revolution with Orion's cutting-edge platform.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="#contact" className="btn btn-primary" style={{ fontSize: '1.1rem' }}>
-              Start Building Today
-            </a>
-            <a href="#about" className="btn btn-secondary">
-              Book a Demo
-            </a>
-          </div>
-        </div>
+        {/*<div style={{ */}
+        {/*  background: 'rgba(0, 212, 255, 0.05)',*/}
+        {/*  border: '1px solid rgba(0, 212, 255, 0.1)',*/}
+        {/*  borderRadius: '20px',*/}
+        {/*  padding: '3rem 2rem',*/}
+        {/*  textAlign: 'center',*/}
+        {/*  marginBottom: '4rem'*/}
+        {/*}}>*/}
+        {/*  <h3 style={{*/}
+        {/*    fontSize: '1.8rem',*/}
+        {/*    fontWeight: '700',*/}
+        {/*    marginBottom: '1rem',*/}
+        {/*    color: 'var(--color-text-primary)'*/}
+        {/*  }}>*/}
+        {/*    Ready to build the future?*/}
+        {/*  </h3>*/}
+        {/*  <p style={{*/}
+        {/*    fontSize: '1.1rem',*/}
+        {/*    color: 'var(--color-text-secondary)',*/}
+        {/*    marginBottom: '2rem',*/}
+        {/*    maxWidth: '500px',*/}
+        {/*    margin: '0 auto 2rem'*/}
+        {/*  }}>*/}
+        {/*    Join the AI revolution with Orion's cutting-edge platform.*/}
+        {/*  </p>*/}
+        {/*  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>*/}
+        {/*    <a href="#contact" className="btn btn-primary" style={{ fontSize: '1.1rem' }}>*/}
+        {/*      Start Building Today*/}
+        {/*    </a>*/}
+        {/*    <a href="#about" className="btn btn-secondary">*/}
+        {/*      Book a Demo*/}
+        {/*    </a>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
         {/* Bottom Bar */}
         <div style={{ 
@@ -311,34 +311,44 @@ const Footer: React.FC<FooterProps> = ({ onPrivacyClick, onTermsClick }) => {
             alignItems: 'center',
             gap: '0.5rem'
           }}>
-            <span style={{ fontSize: '1.1rem' }}>⚡</span>
+            <img 
+              src="/orion-logo-trimmed.svg" 
+              alt="Orion" 
+              style={{
+                height: 'clamp(16px, 2.2vw, 24px)',
+                width: 'auto',
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                filter: 'drop-shadow(0 0 8px rgba(29, 78, 216, 0.45))'
+              }}
+            />
             © 2025 Orion Technologies. All rights reserved.
           </p>
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (
-              <a 
-                key={index} 
-                href={item === 'Privacy Policy' || item === 'Terms of Service' ? undefined : "#"}
-                onClick={
-                  item === 'Privacy Policy' ? (e) => { e.preventDefault(); onPrivacyClick?.(); } :
-                  item === 'Terms of Service' ? (e) => { e.preventDefault(); onTermsClick?.(); } :
-                  undefined
-                }
-                style={{ 
-                  color: 'var(--color-text-secondary)',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'color 0.3s ease',
-                  fontWeight: '500',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}
-                onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}
-              >
-                {item}
-              </a>
-            ))}
-          </div>
+          {/*<div style={{ display: 'flex', gap: '2rem' }}>*/}
+          {/*  {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (*/}
+          {/*    <a */}
+          {/*      key={index} */}
+          {/*      href={item === 'Privacy Policy' || item === 'Terms of Service' ? undefined : "#"}*/}
+          {/*      onClick={*/}
+          {/*        item === 'Privacy Policy' ? (e) => { e.preventDefault(); onPrivacyClick?.(); } :*/}
+          {/*        item === 'Terms of Service' ? (e) => { e.preventDefault(); onTermsClick?.(); } :*/}
+          {/*        undefined*/}
+          {/*      }*/}
+          {/*      style={{ */}
+          {/*        color: 'var(--color-text-secondary)',*/}
+          {/*        textDecoration: 'none',*/}
+          {/*        fontSize: '0.9rem',*/}
+          {/*        transition: 'color 0.3s ease',*/}
+          {/*        fontWeight: '500',*/}
+          {/*        cursor: 'pointer'*/}
+          {/*      }}*/}
+          {/*      onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-text-primary)'}*/}
+          {/*      onMouseLeave={(e) => e.currentTarget.style.color = 'var(--color-text-secondary)'}*/}
+          {/*    >*/}
+          {/*      {item}*/}
+          {/*    </a>*/}
+          {/*  ))}*/}
+          {/*</div>*/}
         </div>
       </div>
 

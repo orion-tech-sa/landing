@@ -1,11 +1,11 @@
 import Hero from './components/Hero';
-import ParagraphSection from './components/ParagraphSection';
+import Footer from "./components/Footer.tsx";
 
 function App() {
   return (
     <div className="App">
       <Hero />
-      <ParagraphSection />
+      <Footer />
     </div>
   );
 }
