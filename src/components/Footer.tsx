@@ -73,7 +73,7 @@ const Footer: React.FC<FooterProps> = () => {
               fontSize: '1.1rem',
               maxWidth: '500px'
             }}>
-              Revolutionizing interactions with data and artificial intelligence in Saudi Arabia — delivering robust, algorithmic solutions grounded in market data and risk-aware execution.
+              Revolutionizing interactions with data and artificial intelligence in Saudi Arabia — delivering robust, algorithmic solutions specializing in market data and risk-aware execution.
             </p>
             
             {/* Contact Info */}
