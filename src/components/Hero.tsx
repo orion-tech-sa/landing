@@ -165,7 +165,7 @@ const Hero: React.FC = () => {
 
       {/* Subtle scroll indicator to highlight there is a second section */}
       <a
-        href="#intro"
+        href="#contact"
         className="scroll-indicator"
         aria-label="Scroll to introduction"
         style={{
