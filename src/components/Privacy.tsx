@@ -89,7 +89,7 @@ const Privacy: React.FC<PrivacyProps> = ({ isOpen, onClose }) => {
               color: 'var(--color-text-secondary)',
               fontSize: '0.9rem'
             }}>
-              Last updated: January 1, 2025
+              Last updated: January 1, 2026
             </p>
           </div>
           <button

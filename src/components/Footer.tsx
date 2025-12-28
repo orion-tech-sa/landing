@@ -322,7 +322,7 @@ const Footer: React.FC<FooterProps> = () => {
                 filter: 'drop-shadow(0 0 8px rgba(29, 78, 216, 0.45))'
               }}
             />
-            © 2025 Orion Technologies. All rights reserved.
+            © 2026 Orion Technologies. All rights reserved.
           </p>
           {/*<div style={{ display: 'flex', gap: '2rem' }}>*/}
           {/*  {['Privacy Policy', 'Terms of Service', 'Security'].map((item, index) => (*/}
