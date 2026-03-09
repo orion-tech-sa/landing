@@ -5,27 +5,32 @@
 :root {
   /* Background scale */
   --bg:    #000000;
-  --bg-1:  #060606;
-  --bg-2:  #0d0d0d;
-  --bg-3:  #151515;
+  --bg-1:  #06080f;
+  --bg-2:  #0a0e1a;
+  --bg-3:  #0e1428;
 
   /* Borders */
-  --border:       rgba(255, 255, 255, 0.07);
-  --border-2:     rgba(255, 255, 255, 0.13);
-  --border-gold:  rgba(201, 168, 76, 0.35);
+  --border:       rgba(100, 140, 220, 0.09);
+  --border-2:     rgba(100, 140, 220, 0.16);
+  --border-gold:  rgba(201, 168, 76, 0.38);
 
   /* Text */
-  --text-1: #f0f0f0;
-  --text-2: #747474;
-  --text-3: #383838;
+  --text-1: #E2EAF8;
+  --text-2: #6B82A8;
+  --text-3: #2A3A58;
 
   /* Gold accent */
   --gold:       #c9a84c;
   --gold-2:     #e8c96a;
   --gold-bg:    rgba(201, 168, 76, 0.08);
-  --gold-glow:  rgba(201, 168, 76, 0.22);
+  --gold-glow:  rgba(201, 168, 76, 0.25);
 
-  /* Logo-blue (matches existing logo glow) */
+  /* Space/Nebula */
+  --nebula-purple: rgba(88, 28, 135, 0.45);
+  --nebula-blue:   rgba(29, 78, 216, 0.4);
+  --nebula-teal:   rgba(8, 112, 130, 0.35);
+
+  /* Logo-blue */
   --blue:      #1d4ed8;
   --blue-glow: rgba(29, 78, 216, 0.5);
 
@@ -359,7 +364,7 @@ body {
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  background: linear-gradient(145deg, #000000 0%, #040410 55%, #080820 100%);
+  background: linear-gradient(180deg, #010810 0%, #020C1E 50%, #030E22 100%);
   padding-bottom: max(2rem, env(safe-area-inset-bottom));
 }
 
@@ -379,22 +384,22 @@ body {
 
 .hero-layer-1 {
   background:
-    radial-gradient(circle at 25% 65%, rgba(15, 30, 85, 0.2) 0%, transparent 45%),
-    radial-gradient(circle at 78% 22%, rgba(35, 50, 110, 0.15) 0%, transparent 40%);
+    radial-gradient(circle at 25% 65%, rgba(10, 15, 50, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 78% 22%, rgba(12, 18, 55, 0.12) 0%, transparent 40%);
   animation: atmo1 22s ease-in-out infinite;
   filter: blur(1px);
 }
 
 .hero-layer-2 {
   background:
-    radial-gradient(circle at 72% 38%, rgba(25, 40, 95, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 12% 80%, rgba(30, 45, 100, 0.1) 0%, transparent 45%);
+    radial-gradient(circle at 72% 38%, rgba(8, 12, 45, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 12% 80%, rgba(10, 14, 48, 0.1) 0%, transparent 45%);
   animation: atmo2 28s ease-in-out infinite reverse;
   filter: blur(0.5px);
 }
 
 .hero-layer-3 {
-  background: radial-gradient(circle at 50% 48%, rgba(20, 35, 90, 0.1) 0%, transparent 60%);
+  background: radial-gradient(circle at 50% 48%, rgba(6, 10, 38, 0.12) 0%, transparent 60%);
   animation: atmo3 35s ease-in-out infinite;
   filter: blur(2px);
 }
@@ -405,8 +410,8 @@ body {
   width: 55%; height: 100%;
   background: radial-gradient(
     ellipse 80% 100% at 0% 50%,
-    rgba(15, 30, 85, 0.3) 0%,
-    rgba(25, 40, 95, 0.18) 30%,
+    rgba(12, 18, 55, 0.22) 0%,
+    rgba(10, 14, 45, 0.12) 30%,
     transparent 68%
   );
   filter: blur(5px);
@@ -419,8 +424,8 @@ body {
   width: 55%; height: 100%;
   background: radial-gradient(
     ellipse 80% 100% at 100% 50%,
-    rgba(15, 30, 85, 0.24) 0%,
-    rgba(25, 40, 95, 0.14) 30%,
+    rgba(10, 15, 50, 0.18) 0%,
+    rgba(8, 12, 42, 0.1) 30%,
     transparent 68%
   );
   filter: blur(6px);
@@ -473,12 +478,12 @@ body {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 0 50px rgba(29, 78, 216, 0.6));
+  filter: drop-shadow(0 0 40px rgba(201, 168, 76, 0.35)) drop-shadow(0 0 80px rgba(88, 28, 135, 0.3));
   transition: filter 0.4s ease;
 }
 
 .hero-logo:hover {
-  filter: drop-shadow(0 0 80px rgba(29, 78, 216, 0.8));
+  filter: drop-shadow(0 0 60px rgba(201, 168, 76, 0.55)) drop-shadow(0 0 100px rgba(88, 28, 135, 0.4));
 }
 
 .hero-logo-glow {
@@ -486,12 +491,12 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 130%;
-  height: 130%;
+  width: 150%;
+  height: 150%;
   background: radial-gradient(
     ellipse,
-    rgba(15, 30, 85, 0.24) 0%,
-    rgba(20, 35, 90, 0.12) 35%,
+    rgba(201, 168, 76, 0.12) 0%,
+    rgba(88, 28, 135, 0.1) 40%,
     transparent 70%
   );
   border-radius: 50%;
@@ -562,6 +567,11 @@ body {
   50%       { opacity: 1;   transform: scaleY(1.2); }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1);   opacity: 0.25; }
+  50%       { transform: translateY(-28px) scale(1.1); opacity: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-layer-1, .hero-layer-2, .hero-layer-3,
   .hero-side-left, .hero-side-right,
@@ -620,15 +630,18 @@ body {
 
 .pillar {
   padding: 1.75rem;
-  background: var(--bg-2);
-  border: 1px solid var(--border);
+  background: rgba(9, 22, 48, 0.75);
+  border: 1px solid rgba(100, 140, 220, 0.12);
   border-radius: 16px;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
 }
 
 .pillar:hover {
   border-color: var(--border-gold);
   transform: translateY(-4px);
+  box-shadow: 0 0 40px rgba(88, 28, 135, 0.22), 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
 .pillar-icon {
@@ -718,10 +731,12 @@ body {
 }
 
 .service-card {
-  background: var(--bg-2);
-  border: 1px solid var(--border);
+  background: rgba(9, 22, 48, 0.7);
+  border: 1px solid rgba(100, 140, 220, 0.12);
   border-radius: 20px;
   padding: 2.25rem 2rem 2rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   transition: border-color 0.28s ease, transform 0.28s ease, box-shadow 0.28s ease;
   position: relative;
   overflow: hidden;
@@ -744,7 +759,7 @@ body {
 .service-card:hover {
   border-color: var(--border-gold);
   transform: translateY(-6px);
-  box-shadow: 0 28px 54px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 0 50px rgba(29, 78, 216, 0.18), 0 28px 54px rgba(0, 0, 0, 0.7);
 }
 
 .service-card:hover::before { opacity: 1; }
@@ -889,7 +904,7 @@ body {
 .footer {
   border-top: 1px solid var(--border);
   padding: 2.25rem 0;
-  background: var(--bg);
+  background: rgba(1, 6, 14, 0.98);
 }
 
 .footer-inner {
@@ -936,4 +951,48 @@ body {
     align-items: flex-start;
     gap: 1rem;
   }
+}
+
+/* ============================================================
+   ORION CONSTELLATION
+   ============================================================ */
+.constellation-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.constellation-svg {
+  height: 88%;
+  width: auto;
+  margin-right: 3%;
+  opacity: 0.55;
+}
+
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 1;    }
+}
+
+@keyframes pulseWhite {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.85; }
+}
+
+@media (max-width: 1024px) {
+  .constellation-svg { height: 75%; margin-right: 0; opacity: 0.45; }
+}
+
+@media (max-width: 768px) {
+  .constellation-wrap { justify-content: center; }
+  .constellation-svg  { height: 65%; opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constellation-svg * { animation: none !important; }
 }
