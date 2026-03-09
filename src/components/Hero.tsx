@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
       <div className="container" style={{ position: 'relative', zIndex: 3 }}>
         <div className="hero-content">
           <div className="hero-logo-wrap">
-            <img src="/orion-logo.png" alt="Orion" className="hero-logo" />
+            <img src="/orion-logo-white.svg" alt="Orion" className="hero-logo" />
             <div className="hero-logo-glow" aria-hidden="true" />
           </div>
 

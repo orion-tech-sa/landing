@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
       <div className="container">
         <div className="footer-inner">
           <div className="footer-logo">
-            <img src="/orion-logo-trimmed.svg" alt="Orion" />
+            <img src="/orion-logo-white.svg" alt="Orion" />
           </div>
 
           <p className="footer-copy">© 2026 Orion Technologies. All rights reserved.</p>

@@ -25,7 +25,7 @@ const Header: React.FC = () => {
             className="header-logo"
             onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
-            <img src="/orion-logo-trimmed.svg" alt="Orion" />
+            <img src="/orion-logo-white.svg" alt="Orion" />
           </a>
 
           <nav className="header-nav" aria-label="Main navigation">
