@@ -53,6 +53,8 @@ const About: React.FC = () => {
   return (
     <section id="about" className="section about" ref={ref}>
       <BlackHole />
+      {/* Gradient overlay: protects left-side text on desktop, fades on mobile */}
+      <div className="about-overlay" aria-hidden="true" />
       <div className="container">
 
         {/* Header */}

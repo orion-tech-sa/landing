@@ -927,37 +927,36 @@ body {
 .about {
   background: var(--bg);
   overflow: hidden;
-  /* Extra vertical room so the black hole has space to breathe */
-  padding-top:    6rem;
-  padding-bottom: 6rem;
+  /* Let .section handle the base padding — we don't override it */
+}
+
+/* Gradient overlay: sits between canvas (z:0) and content container (z:1).
+   On mobile it's nearly transparent; on desktop it fades from solid black
+   on the left (content side) to transparent on the right (BH side). */
+.about-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  /* Mobile: very light veil so BH reads as background */
+  background: rgba(0, 0, 0, 0.25);
 }
 
 @media (min-width: 769px) {
-  .about { padding-top: 10rem; padding-bottom: 10rem; }
-}
-
-@media (min-width: 1025px) {
-  .about { padding-top: 13rem; padding-bottom: 13rem; }
+  .about-overlay {
+    background: linear-gradient(
+      100deg,
+      rgba(0, 0, 0, 0.80) 0%,
+      rgba(0, 0, 0, 0.55) 38%,
+      rgba(0, 0, 0, 0.18) 62%,
+      transparent 80%
+    );
+  }
 }
 
 .about > .container {
   position: relative;
   z-index: 1;
-  /* Subtle dark vignette keeps text legible over the bright canvas */
-  isolation: isolate;
-}
-
-.about > .container::before {
-  content: '';
-  position: absolute;
-  inset: -4rem -2rem;
-  background: radial-gradient(
-    ellipse 90% 80% at 50% 50%,
-    transparent 30%,
-    rgba(0, 0, 0, 0.55) 100%
-  );
-  pointer-events: none;
-  z-index: -1;
 }
 
 .about-header {
