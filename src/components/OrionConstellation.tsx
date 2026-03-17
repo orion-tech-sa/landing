@@ -4,7 +4,7 @@ import React from 'react';
 // Betelgeuse (gold) top-left shoulder | Rigel (blue-white) bottom-right foot
 const STARS = [
   { id: 'meissa',     x: 250, y:  55, r: 3,   glow: 20, color: '#dde8ff', pulse: 4.5, isGold: false },
-  { id: 'betelgeuse', x: 118, y: 192, r: 9,   glow: 52, color: '#e8c96a', pulse: 6.2, isGold: true  },
+  { id: 'betelgeuse', x: 118, y: 192, r: 9,   glow: 52, color: '#dde8ff', pulse: 6.2, isGold: false },
   { id: 'bellatrix',  x: 392, y: 162, r: 5,   glow: 28, color: '#ccdeff', pulse: 3.9, isGold: false },
   { id: 'mintaka',    x: 185, y: 398, r: 4,   glow: 22, color: '#d8eaff', pulse: 5.1, isGold: false },
   { id: 'alnilam',    x: 250, y: 415, r: 5.5, glow: 30, color: '#f0f6ff', pulse: 4.8, isGold: false },
@@ -55,8 +55,8 @@ const OrionConstellation: React.FC = () => (
         ))}
         {/* Nebula hazes around the two brightest stars */}
         <radialGradient id="haze-betelgeuse" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="#c9a84c" stopOpacity="0.16" />
-          <stop offset="100%" stopColor="#c9a84c" stopOpacity="0" />
+          <stop offset="0%"   stopColor="#b8d2ff" stopOpacity="0.14" />
+          <stop offset="100%" stopColor="#b8d2ff" stopOpacity="0" />
         </radialGradient>
         <radialGradient id="haze-rigel" cx="50%" cy="50%" r="50%">
           <stop offset="0%"   stopColor="#6ea8fe" stopOpacity="0.14" />

@@ -1,6 +1,8 @@
 import React from 'react';
+import { useLang } from '../contexts/LanguageContext';
 
 const Footer: React.FC = () => {
+  const { t } = useLang();
   return (
     <footer className="footer">
       <div className="container">
@@ -9,7 +11,7 @@ const Footer: React.FC = () => {
             <img src="/orion-logo-white.svg" alt="Orion" />
           </div>
 
-          <p className="footer-copy">© 2026 Orion Technologies. All rights reserved.</p>
+          <p className="footer-copy">{t.footer.copy}</p>
 
           <div className="footer-socials">
             <a
