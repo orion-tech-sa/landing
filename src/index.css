@@ -35,6 +35,43 @@
   --blue-glow: rgba(29, 78, 216, 0.5);
 
   font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ============================================================
+   ARABIC / RTL
+   ============================================================ */
+[dir="rtl"] {
+  font-family: 'Almarai', 'Space Grotesk', sans-serif;
+}
+
+[dir="rtl"] .stat-num,
+[dir="rtl"] .service-num {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+[dir="rtl"] .section-label { letter-spacing: 0; }
+
+[dir="rtl"] .nav-link::after { right: 0; left: auto; }
+
+[dir="rtl"] .about-intro,
+[dir="rtl"] .contact-inner { text-align: right; }
+
+[dir="rtl"] .pillar,
+[dir="rtl"] .service-card { text-align: right; }
+
+[dir="rtl"] .service-feature { flex-direction: row-reverse; }
+[dir="rtl"] .service-feature::before { margin-left: 0.625rem; margin-right: 0; }
+
+[dir="rtl"] .contact-email { flex-direction: row-reverse; }
+
+[dir="rtl"] .footer-inner { flex-direction: row-reverse; }
+
+[dir="rtl"] .hero-title,
+[dir="rtl"] .hero-subtitle { direction: rtl; }
+
+[dir="rtl"] .mobile-nav { text-align: right; }
+
+:root {
   line-height: 1.6;
   font-weight: 400;
   font-synthesis: none;
@@ -290,6 +327,24 @@ body {
   padding: 0.6rem 1.25rem;
   font-size: 0.85rem;
 }
+
+.lang-toggle {
+  background: transparent;
+  border: 1px solid var(--border-gold);
+  color: var(--gold);
+  padding: 0.4rem 0.875rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.lang-toggle:hover {
+  background: var(--gold-bg);
+}
+
 
 /* Mobile */
 .mobile-toggle {

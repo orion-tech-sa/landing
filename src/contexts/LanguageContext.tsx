@@ -1,12 +1,35 @@
-import React, { createContext, useContext } from 'react';
-import { t } from '../i18n/translations';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { translations } from '../i18n/translations';
 
-const LanguageContext = createContext({ t });
+type Lang = 'en' | 'ar';
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <LanguageContext.Provider value={{ t }}>
-    {children}
-  </LanguageContext.Provider>
-);
+interface LangCtx {
+  lang:   Lang;
+  isRTL:  boolean;
+  toggle: () => void;
+  t:      typeof translations['en'];
+}
 
-export const useLang = () => useContext(LanguageContext);
+const LanguageContext = createContext<LangCtx | null>(null);
+
+export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [lang, setLang] = useState<Lang>('en');
+  const isRTL = lang === 'ar';
+
+  useEffect(() => {
+    document.documentElement.dir  = isRTL ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+  }, [lang, isRTL]);
+
+  return (
+    <LanguageContext.Provider value={{ lang, isRTL, toggle: () => setLang(l => l === 'en' ? 'ar' : 'en'), t: translations[lang] }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+};
+
+export const useLang = (): LangCtx => {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) throw new Error('useLang must be used within LanguageProvider');
+  return ctx;
+};
