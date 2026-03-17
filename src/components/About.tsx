@@ -28,7 +28,7 @@ const ScrambleStat: React.FC<{ num: string; label: string; animate: boolean }> =
   });
 
   return (
-    <div ref={ref} className="fade-up">
+    <div ref={ref} className={`fade-up${inView ? ' visible' : ''}`}>
       <div className="stat-num">{animate ? displayed : num}</div>
       <div className="stat-label">{label}</div>
     </div>
@@ -70,7 +70,7 @@ const About: React.FC = () => {
             <span className="divide-col-label before">Before Orion</span>
             <ul className="divide-list">
               {t.about.before.map((item, i) => (
-                <li key={i} className="divide-item before fade-up" style={{ transitionDelay: `${0.22 + i * 0.07}s` }}>
+                <li key={i} className="divide-item before" style={{ transitionDelay: `${0.22 + i * 0.07}s` }}>
                   <span className="divide-marker">×</span>
                   {item}
                 </li>
@@ -81,7 +81,7 @@ const About: React.FC = () => {
             <span className="divide-col-label after">With Orion</span>
             <ul className="divide-list">
               {t.about.after.map((item, i) => (
-                <li key={i} className="divide-item after fade-up" style={{ transitionDelay: `${0.3 + i * 0.07}s` }}>
+                <li key={i} className="divide-item after" style={{ transitionDelay: `${0.3 + i * 0.07}s` }}>
                   <span className="divide-marker">→</span>
                   {item}
                 </li>

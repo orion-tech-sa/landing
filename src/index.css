@@ -575,6 +575,18 @@ body {
   gap: 0.875rem;
   font-size: 0.9rem;
   line-height: 1.45;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.about-divide.visible .divide-item {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .divide-item { opacity: 1; transform: none; transition: none; }
 }
 
 .divide-item.before { color: var(--text-2); }
