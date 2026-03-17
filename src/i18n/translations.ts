@@ -8,7 +8,7 @@ const en = {
   hero: {
     eyebrow:   'Algo Trading · Tadawul · Saudi Markets',
     title:     'Trade like\nthe top 1%.',
-    subtitle:  'Orion brings the algorithmic strategies, execution speed, and real-time market intelligence used by Saudi hedge funds to every individual investor.',
+    subtitle:  "Hedge funds on Tadawul don't place orders manually. Now, neither do you.",
     cta:       'Get early access',
     secondary: 'See the platform',
   },
@@ -88,7 +88,7 @@ const ar: typeof en = {
   hero: {
     eyebrow:   'تداول خوارزمي · تداول · الأسواق السعودية',
     title:     'تداول كأفضل\n١٪.',
-    subtitle:  'أوراين يتيح لكل مستثمر سعودي الوصول إلى الاستراتيجيات الخوارزمية وسرعة التنفيذ وذكاء السوق الفوري الذي احتكرته صناديق التحوط لعقود.',
+    subtitle:  'صناديق التحوط في تداول لا تُدخل الأوامر يدوياً. والآن، أنت كذلك.',
     cta:       'احصل على وصول مبكر',
     secondary: 'استعرض المنصة',
   },

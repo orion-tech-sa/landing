@@ -47,7 +47,7 @@ const About: React.FC = () => {
     );
     ref.current?.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, []);
+  }, [lang]); // re-observe when language changes so newly rendered elements get visible class
 
   return (
     <section id="about" className="section about" ref={ref}>
@@ -70,7 +70,7 @@ const About: React.FC = () => {
             <span className="divide-col-label before">Before Orion</span>
             <ul className="divide-list">
               {t.about.before.map((item, i) => (
-                <li key={item} className="divide-item before fade-up" style={{ transitionDelay: `${0.22 + i * 0.07}s` }}>
+                <li key={i} className="divide-item before fade-up" style={{ transitionDelay: `${0.22 + i * 0.07}s` }}>
                   <span className="divide-marker">×</span>
                   {item}
                 </li>
@@ -81,7 +81,7 @@ const About: React.FC = () => {
             <span className="divide-col-label after">With Orion</span>
             <ul className="divide-list">
               {t.about.after.map((item, i) => (
-                <li key={item} className="divide-item after fade-up" style={{ transitionDelay: `${0.3 + i * 0.07}s` }}>
+                <li key={i} className="divide-item after fade-up" style={{ transitionDelay: `${0.3 + i * 0.07}s` }}>
                   <span className="divide-marker">→</span>
                   {item}
                 </li>
@@ -103,9 +103,9 @@ const About: React.FC = () => {
 
         {/* Stats — scramble on scroll */}
         <div className="about-stats">
-          {t.about.stats.map(s => (
+          {t.about.stats.map((s, i) => (
             <ScrambleStat
-              key={s.label}
+              key={i}
               num={s.num}
               label={s.label}
               animate={animate}
