@@ -37,6 +37,19 @@ const BG_STARS = [
 
 const pos = Object.fromEntries(STARS.map(s => [s.id, { x: s.x, y: s.y }]));
 
+// Unique drift path per background star so they don't move in sync
+const BG_DRIFTS = BG_STARS.map((_, i) => ({
+  dx:    ((i * 7)  % 9) - 4,           // –4 … +4 px
+  dy:    ((i * 11) % 7) - 3,           // –3 … +3 px
+  dur:   9 + (i * 1.9) % 8,            // 9 – 17 s
+  begin: `${(i * 1.3) % 6}s`,          // stagger
+}));
+
+const prefersReducedMotion =
+  typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
+
 const OrionConstellation: React.FC = () => (
   <div className="constellation-wrap" aria-hidden="true">
     <svg
@@ -64,10 +77,27 @@ const OrionConstellation: React.FC = () => (
         </radialGradient>
       </defs>
 
-      {/* Background faint stars */}
-      {BG_STARS.map((s, i) => (
-        <circle key={`bg-${i}`} cx={s.x} cy={s.y} r={s.r} fill="rgba(200,225,255,0.35)" />
-      ))}
+      {/* Background faint stars — each drifts on its own path */}
+      {BG_STARS.map((s, i) => {
+        const d = BG_DRIFTS[i];
+        return (
+          <circle key={`bg-${i}`} cx={s.x} cy={s.y} r={s.r} fill="rgba(200,225,255,0.35)">
+            {!prefersReducedMotion && (
+              <animateTransform
+                attributeName="transform"
+                type="translate"
+                values={`0,0; ${d.dx},${d.dy}; ${d.dx * 0.4},${d.dy * 1.6}; ${-d.dx * 0.6},${d.dy * 0.3}; 0,0`}
+                keyTimes="0;0.3;0.6;0.85;1"
+                calcMode="spline"
+                keySplines="0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1;0.4 0 0.6 1"
+                dur={`${d.dur}s`}
+                begin={d.begin}
+                repeatCount="indefinite"
+              />
+            )}
+          </circle>
+        );
+      })}
 
       {/* Nebula hazes */}
       <ellipse cx="118" cy="192" rx="100" ry="100" fill="url(#haze-betelgeuse)" />

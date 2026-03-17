@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useLang } from '../contexts/LanguageContext';
 import SpotlightCard from './SpotlightCard';
 import { useScramble } from '../hooks/useScramble';
+import BlackHole from './BlackHole';
 
 /* Stat number that scrambles into view when scrolled to */
 const ScrambleStat: React.FC<{ num: string; label: string; animate: boolean }> = ({
@@ -51,6 +52,7 @@ const About: React.FC = () => {
 
   return (
     <section id="about" className="section about" ref={ref}>
+      <BlackHole />
       <div className="container">
 
         {/* Header */}
