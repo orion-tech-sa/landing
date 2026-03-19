@@ -38,8 +38,8 @@ const ScrambleStat: React.FC<{ num: string; label: string; animate: boolean }> =
 
 const About: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
-  const { t, lang } = useLang();
-  const animate = lang === 'en';
+  const { t } = useLang();
+  const animate = true;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -48,7 +48,7 @@ const About: React.FC = () => {
     );
     ref.current?.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     return () => observer.disconnect();
-  }, [lang]); // re-observe when language changes so newly rendered elements get visible class
+  }, []);
 
   return (
     <section id="about" className="section about" ref={ref}>

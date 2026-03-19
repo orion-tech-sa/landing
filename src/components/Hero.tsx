@@ -35,8 +35,8 @@ const ORDERS = [
 
 const Hero: React.FC = () => {
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
-  const { t, lang } = useLang();
-  const animate = lang === 'en' && !prefersReducedMotion;
+  const { t } = useLang();
+  const animate = !prefersReducedMotion;
 
   const titleDisplay = useScramble(t.hero.title, {
     enabled:  animate,

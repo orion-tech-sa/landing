@@ -1,16 +1,74 @@
 import React, { useEffect, useRef } from 'react';
 
-interface Particle {
-  angle:  number;
-  radius: number;
-  speed:  number;
-  sink:   number;
-  size:   number;
-  alpha:  number;
-}
+/* ─────────────────────────────────────────────────────────────────────────────
+   BlackHole — Grok-inspired orbital light streams
+   Concept: glowing calligraphic arcs spiralling around a dark void
+   No accretion disk, no rings — just luminous brushstroke-like streams
+   ───────────────────────────────────────────────────────────────────────── */
 
-const DISK_Y  = 0.24;
-const GROW_MS = 2400;
+const GROW_MS = 2800;
+
+// Each stream orbits at a different radius and speed.
+// Colors go warm-white (outer) → cold blue-white (inner).
+const STREAMS = [
+  {
+    baseAngle: 0.00,
+    rMult:     4.0,
+    speed:     0.09,           // rad / s
+    span:      Math.PI * 1.35, // how many radians the tail covers
+    maxW:      3.2,            // max stroke width at s = 1
+    rgb:       [255, 248, 235] as const,
+    wAmp:      0.08,           // wobble amplitude (fraction of radius)
+    wFreq:     0.9,            // wobble time-frequency
+    wSpatial:  4.2,            // wobble spatial frequency along the arc
+  },
+  {
+    baseAngle: Math.PI * 0.62,
+    rMult:     2.95,
+    speed:     0.14,
+    span:      Math.PI * 1.60,
+    maxW:      2.5,
+    rgb:       [252, 252, 255] as const,
+    wAmp:      0.05,
+    wFreq:     0.7,
+    wSpatial:  3.8,
+  },
+  {
+    baseAngle: Math.PI * 1.28,
+    rMult:     2.10,
+    speed:     0.22,
+    span:      Math.PI * 1.75,
+    maxW:      1.9,
+    rgb:       [235, 244, 255] as const,
+    wAmp:      0.06,
+    wFreq:     1.4,
+    wSpatial:  5.0,
+  },
+  {
+    baseAngle: Math.PI * 0.35,
+    rMult:     1.55,
+    speed:     0.33,
+    span:      Math.PI * 1.90,
+    maxW:      1.4,
+    rgb:       [215, 232, 255] as const,
+    wAmp:      0.04,
+    wFreq:     2.0,
+    wSpatial:  6.2,
+  },
+  {
+    baseAngle: Math.PI * 1.82,
+    rMult:     1.18,
+    speed:     0.48,
+    span:      Math.PI * 1.15,
+    maxW:      0.85,
+    rgb:       [200, 220, 255] as const,
+    wAmp:      0.03,
+    wFreq:     2.8,
+    wSpatial:  7.5,
+  },
+] as const;
+
+const SEG = 50; // arc segments per stream (quality / perf balance)
 
 const BlackHole: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -26,16 +84,14 @@ const BlackHole: React.FC = () => {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) return;
 
-    let animId: number;
-    let t         = 0;
-    let gp        = 0;
+    let animId:    number;
+    let t          = 0;
+    let lastTs:    number | null = null;
+    let gp         = 0;
     let growStart: number | null = null;
-    let isVisible = false;
-
-    // ── Viewport dimensions (cached) — scale off VIEWPORT, not section ──
-    // This prevents the BH from becoming huge when the section is very tall.
-    let _vw = window.innerWidth;
-    let _vh = window.innerHeight;
+    let isVisible  = false;
+    let _vw        = window.innerWidth;
+    let _vh        = window.innerHeight;
 
     const resize = () => {
       canvas.width  = canvas.offsetWidth;
@@ -49,223 +105,154 @@ const BlackHole: React.FC = () => {
 
     const io = new IntersectionObserver(
       ([e]) => { isVisible = e.isIntersecting; },
-      { threshold: 0.06 }
+      { threshold: 0.05 }
     );
     io.observe(canvas);
 
-    // ── Particles ──────────────────────────────────────────────────────
-    const makeP = (): Particle => ({
-      angle:  Math.random() * Math.PI * 2,
-      radius: Math.random() * 310 + 120,
-      speed:  (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 0.008 + 0.0015),
-      sink:   Math.random() * 0.13 + 0.025,
-      size:   Math.random() * 1.7 + 0.2,
-      alpha:  Math.random() * 0.62 + 0.15,
-    });
-
-    const particles: Particle[] = Array.from({ length: 240 }, makeP);
-
-    // ── Draw accretion disk rings (half or full arc) ───────────────────
-    const drawRings = (
-      cx: number, cy: number,
-      PR: number, s: number,
-      startA: number, endA: number,
-    ) => {
-      const rings = [
-        { r: PR * 1.01, w: 7.5 * s, a: 0.88, b: 32 * s },
-        { r: PR * 1.09, w: 4.2 * s, a: 0.58, b: 20 * s },
-        { r: PR * 1.22, w: 2.6 * s, a: 0.37, b: 12 * s },
-        { r: PR * 1.40, w: 1.9 * s, a: 0.24, b:  7 * s },
-        { r: PR * 1.64, w: 1.3 * s, a: 0.15, b:  4 * s },
-        { r: PR * 1.94, w: 1.0 * s, a: 0.09, b:  2 * s },
-        { r: PR * 2.32, w: 0.75* s, a: 0.055,b:  0 },
-        { r: PR * 2.82, w: 0.5 * s, a: 0.03, b:  0 },
-        { r: PR * 3.48, w: 0.35* s, a: 0.015,b:  0 },
-        { r: PR * 4.30, w: 0.25* s, a: 0.007,b:  0 },
-      ];
-      for (const rg of rings) {
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.scale(1, DISK_Y);
-        ctx.shadowBlur  = rg.b * gp;
-        ctx.shadowColor = `rgba(180, 225, 255, ${rg.a * gp})`;
-        ctx.strokeStyle = `rgba(194, 232, 255, ${rg.a * gp})`;
-        ctx.lineWidth   = rg.w;
-        ctx.beginPath();
-        ctx.arc(0, 0, rg.r, startA, endA);
-        ctx.stroke();
-        ctx.restore();
-      }
-    };
-
-    // ── Frame loop ─────────────────────────────────────────────────────
+    // ── Frame ──────────────────────────────────────────────────────────
     const frame = (ts: number) => {
       animId = requestAnimationFrame(frame);
       if (!isVisible) return;
 
       if (growStart === null) growStart = ts;
       const raw = Math.min((ts - growStart) / GROW_MS, 1);
-      gp = 1 - Math.pow(1 - raw, 3);   // ease-out cubic
+      gp = 1 - Math.pow(1 - raw, 3);
 
-      const w  = canvas.width;
-      const h  = canvas.height;
+      const dt = lastTs !== null ? Math.min((ts - lastTs) / 1000, 0.05) : 0;
+      lastTs = ts;
+      t += dt;
+
+      const w = canvas.width;
+      const h = canvas.height;
       if (w === 0 || h === 0) return;
 
-      // Scale off VIEWPORT min dimension so section height never inflates BH
       const baseS = Math.min(_vw, _vh) / 490;
       const s     = baseS * gp;
       if (s < 0.005) { ctx.clearRect(0, 0, w, h); return; }
 
-      // On wide screens shift BH right so content has room on the left
-      const cx = _vw < 769 ? w * 0.50
-               : _vw < 1100 ? w * 0.58
+      const cx = _vw < 769  ? w * 0.50
+               : _vw < 1100 ? w * 0.60
                : w * 0.67;
-      const cy = h * 0.5;
+      const cy = h * 0.50;
 
-      const R  = 105 * s;   // event horizon
-      const PR = 118 * s;   // photon ring
-
-      // Jets are capped to 80% of canvas height so they never tile oddly
-      const jetLen = Math.min(PR * 8.5, h * 0.80 / s) * s;
+      const R  = 96  * s;   // event horizon radius
+      const PR = 110 * s;   // innermost stream reference radius
 
       ctx.clearRect(0, 0, w, h);
-      t += 0.006;
 
-      // 1. Deep gravitational halo
-      const halo = ctx.createRadialGradient(cx, cy, R * 0.4, cx, cy, PR * 6.5);
-      halo.addColorStop(0,    `rgba(38,  90, 245, ${0.22 * gp})`);
-      halo.addColorStop(0.20, `rgba(24,  62, 205, ${0.10 * gp})`);
-      halo.addColorStop(0.50, `rgba(10,  32, 160, ${0.04 * gp})`);
-      halo.addColorStop(1,    'rgba(0, 0, 0, 0)');
-      ctx.fillStyle = halo;
+      // ── 1. Deep void atmosphere ────────────────────────────────────
+      const atm = ctx.createRadialGradient(cx, cy, 0, cx, cy, PR * 5.5);
+      atm.addColorStop(0,    `rgba( 6,  8, 24, ${0.22 * gp})`);
+      atm.addColorStop(0.40, `rgba( 4,  5, 16, ${0.10 * gp})`);
+      atm.addColorStop(0.75, `rgba( 2,  3, 10, ${0.04 * gp})`);
+      atm.addColorStop(1,    'rgba(0,0,0,0)');
+      ctx.fillStyle = atm;
       ctx.beginPath();
-      ctx.arc(cx, cy, PR * 6.5, 0, Math.PI * 2);
+      ctx.arc(cx, cy, PR * 5.5, 0, Math.PI * 2);
       ctx.fill();
 
-      // 2. Relativistic jets (drawn early so disk/horizon paint over the base)
-      for (const dir of [-1, 1]) {
-        const jg = ctx.createLinearGradient(cx, cy, cx, cy + dir * jetLen);
-        jg.addColorStop(0,    `rgba(145, 198, 255, ${0.38 * gp})`);
-        jg.addColorStop(0.12, `rgba(112, 170, 255, ${0.18 * gp})`);
-        jg.addColorStop(0.42, `rgba(62,  130, 255, ${0.06 * gp})`);
-        jg.addColorStop(1,    'rgba(0, 0, 0, 0)');
-        const w0 = PR * 0.08 * s;
-        const w1 = PR * 1.50 * s;
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(cx - w0, cy);
-        ctx.lineTo(cx - w1, cy + dir * jetLen);
-        ctx.lineTo(cx + w1, cy + dir * jetLen);
-        ctx.lineTo(cx + w0, cy);
-        ctx.closePath();
-        ctx.fillStyle = jg;
-        ctx.fill();
-        ctx.restore();
-      }
+      // ── 2. Orbital light streams ───────────────────────────────────
+      for (const st of STREAMS) {
+        const [cr, cg, cb] = st.rgb;
+        const headAngle = st.baseAngle + t * st.speed;
+        const rBase     = st.rMult * PR;
 
-      // 3. Back half of disk (π → 2π = top/far side, behind horizon)
-      drawRings(cx, cy, PR, s, Math.PI, Math.PI * 2);
-
-      // 4. Doppler brightening — bottom arc (approaching, near side)
-      for (let d = 0; d < 3; d++) {
-        const bright = [0.90, 0.48, 0.22][d];
-        const rr     = [PR * 1.01, PR * 1.11, PR * 1.24][d];
-        const lw     = [9.5, 5.5, 3][d];
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.scale(1, DISK_Y);
-        ctx.beginPath();
-        ctx.arc(0, 0, rr, Math.PI * 0.10, Math.PI * 0.90);
-        ctx.strokeStyle = `rgba(248, 253, 255, ${bright * 0.88 * gp})`;
-        ctx.lineWidth   = lw * s;
-        ctx.shadowBlur  = 50 * s * bright;
-        ctx.shadowColor = `rgba(222, 246, 255, ${bright * gp})`;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // 5. Rotating hot-spot arcs
-      for (let i = 0; i < 2; i++) {
-        const base = t * 0.44 + i * (Math.PI + 0.30);
-        ctx.save();
-        ctx.translate(cx, cy);
-        ctx.scale(1, DISK_Y);
-        ctx.beginPath();
-        ctx.arc(0, 0, PR * 1.01, base, base + Math.PI * 0.38);
-        ctx.strokeStyle = `rgba(252, 255, 255, ${0.94 * gp})`;
-        ctx.lineWidth   = 8 * s;
-        ctx.shadowBlur  = 44 * s;
-        ctx.shadowColor = `rgba(222, 246, 255, ${0.97 * gp})`;
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.arc(0, 0, PR * 1.01, base + Math.PI * 0.38, base + Math.PI * 1.05);
-        ctx.strokeStyle = `rgba(128, 195, 255, ${0.12 * gp})`;
-        ctx.lineWidth   = 2 * s;
-        ctx.shadowBlur  = 10 * s;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // 6. Particles (spiraling in)
-      for (const p of particles) {
-        p.angle  += p.speed;
-        p.radius -= p.sink;
-        if (p.radius < R / s * 0.88) {
-          const n  = makeP();
-          p.angle  = n.angle;  p.radius = n.radius;
-          p.speed  = n.speed;  p.sink   = n.sink;
-          p.size   = n.size;   p.alpha  = n.alpha;
+        // Pre-compute all arc positions for this stream
+        const pts: { x: number; y: number }[] = [];
+        for (let i = 0; i <= SEG; i++) {
+          const frac  = i / SEG;
+          const angle = headAngle - (1 - frac) * st.span;
+          // Radius: tail is ~15% further out (infall spiral)
+          // plus two-frequency organic wobble for a living, breathing quality
+          const r = rBase * (
+            1 + 0.15 * (1 - frac)
+            + st.wAmp * Math.sin(frac * st.wSpatial + t * st.wFreq)
+            + st.wAmp * 0.4 * Math.cos(frac * (st.wSpatial * 1.6) - t * st.wFreq * 0.65)
+          );
+          pts.push({
+            x: cx + Math.cos(angle) * r,
+            y: cy + Math.sin(angle) * r,
+          });
         }
-        const px   = cx + Math.cos(p.angle) * p.radius * s;
-        const py   = cy + Math.sin(p.angle) * p.radius * s * DISK_Y;
-        const fade = Math.min(1, (p.radius - R / s) / 60) * gp;
-        if (fade <= 0) continue;
-        ctx.beginPath();
-        ctx.arc(px, py, p.size * s, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(210, 237, 255, ${p.alpha * fade})`;
-        ctx.fill();
+
+        // PASS 1 — soft glow (wide, dim, blurred)
+        ctx.save();
+        ctx.shadowBlur  = 16 * s;
+        ctx.shadowColor = `rgba(${cr},${cg},${cb},0.55)`;
+        ctx.lineCap = 'round';
+        for (let i = 0; i < SEG; i++) {
+          const frac  = (i + 0.5) / SEG;
+          const alpha = Math.pow(frac, 2.0) * 0.35 * gp;
+          if (alpha < 0.005) continue;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+          ctx.strokeStyle = `rgba(${cr},${cg},${cb},${alpha})`;
+          ctx.lineWidth   = st.maxW * s * (0.4 + 0.6 * frac) * 3.5;
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // PASS 2 — bright core (narrow, opaque)
+        ctx.lineCap = 'round';
+        for (let i = 0; i < SEG; i++) {
+          const frac  = (i + 0.5) / SEG;
+          const alpha = Math.pow(frac, 1.6) * 0.92 * gp;
+          if (alpha < 0.01) continue;
+          // Skip segments fully inside event horizon
+          const mx = (pts[i].x + pts[i + 1].x) * 0.5;
+          const my = (pts[i].y + pts[i + 1].y) * 0.5;
+          if ((mx - cx) ** 2 + (my - cy) ** 2 < (R * 0.92) ** 2) continue;
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[i + 1].x, pts[i + 1].y);
+          ctx.strokeStyle = `rgba(${cr},${cg},${cb},${alpha})`;
+          // Calligraphic taper: thin tail → full width at head
+          ctx.lineWidth   = st.maxW * s * Math.pow(frac, 0.65);
+          ctx.stroke();
+        }
+
+        // PASS 3 — head bright point
+        const hx = pts[SEG].x;
+        const hy = pts[SEG].y;
+        const hDistSq = (hx - cx) ** 2 + (hy - cy) ** 2;
+        if (hDistSq > (R * 1.08) ** 2) {
+          ctx.save();
+          ctx.shadowBlur  = 22 * s;
+          ctx.shadowColor = `rgba(${cr},${cg},${cb},0.9)`;
+          ctx.beginPath();
+          ctx.arc(hx, hy, st.maxW * s * 2.0, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${cr},${cg},${cb},${0.95 * gp})`;
+          ctx.fill();
+          ctx.restore();
+        }
       }
 
-      // 7. Photon ring glow (circular, not flattened)
-      const photon = ctx.createRadialGradient(cx, cy, R * 0.68, cx, cy, PR * 1.42);
-      photon.addColorStop(0,    'rgba(0,0,0,0)');
-      photon.addColorStop(0.48, `rgba(44, 135, 255, ${0.09 * gp})`);
-      photon.addColorStop(0.84, `rgba(194, 232, 255, ${0.44 * gp})`);
-      photon.addColorStop(1,    'rgba(0,0,0,0)');
-      ctx.fillStyle = photon;
-      ctx.beginPath();
-      ctx.arc(cx, cy, PR * 1.42, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 8. Event horizon — feathered shadow then solid black
-      const ehGrad = ctx.createRadialGradient(cx, cy, R * 0.76, cx, cy, R * 1.14);
-      ehGrad.addColorStop(0,    '#000');
-      ehGrad.addColorStop(0.85, '#000');
-      ehGrad.addColorStop(1,    'rgba(0,0,0,0)');
+      // ── 3. Event horizon — pure void, soft feathered edge ─────────
+      const ehGrad = ctx.createRadialGradient(cx, cy, R * 0.74, cx, cy, R * 1.14);
+      ehGrad.addColorStop(0,   '#000000');
+      ehGrad.addColorStop(0.88,'#000000');
+      ehGrad.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.fillStyle = ehGrad;
       ctx.beginPath();
       ctx.arc(cx, cy, R * 1.14, 0, Math.PI * 2);
       ctx.fill();
+      // Solid core
       ctx.fillStyle = '#000';
       ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.arc(cx, cy, R * 0.82, 0, Math.PI * 2);
       ctx.fill();
 
-      // 9. Front half of disk (0 → π = bottom/near side, wraps in front)
-      drawRings(cx, cy, PR, s, 0, Math.PI);
-
-      // Inner white-hot rim on the front half
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.scale(1, DISK_Y);
+      // ── 4. Photon ring — faint cool halo right at the horizon edge ─
+      const ring = ctx.createRadialGradient(cx, cy, R * 0.86, cx, cy, R * 1.35);
+      ring.addColorStop(0,    'rgba(0,0,0,0)');
+      ring.addColorStop(0.55, `rgba(180,210,255,${0.04 * gp})`);
+      ring.addColorStop(0.88, `rgba(210,228,255,${0.18 * gp})`);
+      ring.addColorStop(1,    'rgba(0,0,0,0)');
+      ctx.fillStyle = ring;
       ctx.beginPath();
-      ctx.arc(0, 0, PR * 1.01, 0, Math.PI);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${0.16 * gp})`;
-      ctx.lineWidth   = 4.5 * s;
-      ctx.shadowBlur  = 16 * s;
-      ctx.shadowColor = `rgba(235, 250, 255, ${0.35 * gp})`;
-      ctx.stroke();
-      ctx.restore();
+      ctx.arc(cx, cy, R * 1.35, 0, Math.PI * 2);
+      ctx.fill();
     };
 
     animId = requestAnimationFrame(frame);
@@ -288,7 +275,7 @@ const BlackHole: React.FC = () => {
         height:        '100%',
         pointerEvents: 'none',
         zIndex:        0,
-        opacity:       0.68,
+        opacity:       0.90,
       }}
     />
   );

@@ -4,7 +4,7 @@ import { useLang } from '../contexts/LanguageContext';
 const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { t, lang, toggle } = useLang();
+  const { t } = useLang();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -34,9 +34,6 @@ const Header: React.FC = () => {
             {navLinks.map(link => (
               <a key={link.href} href={link.href} className="nav-link">{link.label}</a>
             ))}
-            <button className="lang-toggle" onClick={toggle} aria-label="Switch language">
-              {lang === 'en' ? 'عربي' : 'EN'}
-            </button>
             <a href="#contact" className="btn btn-primary header-cta">{t.nav.cta}</a>
           </nav>
 
@@ -62,11 +59,6 @@ const Header: React.FC = () => {
             <a href="#contact" className="btn btn-primary" onClick={() => setMenuOpen(false)}>
               {t.nav.cta}
             </a>
-          </li>
-          <li>
-            <button className="lang-toggle" onClick={() => { toggle(); setMenuOpen(false); }}>
-              {lang === 'en' ? 'عربي' : 'EN'}
-            </button>
           </li>
         </ul>
       </div>
