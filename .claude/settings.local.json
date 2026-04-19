@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Read(//c/Users/Admin/Desktop/**)",
+      "Read(//c/Users/Admin/Documents/**)",
+      "Read(//c/Users/Admin/Downloads/**)",
+      "WebFetch(domain:orion.sa)",
+      "Bash(npx vercel:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "WebFetch(domain:www.tradingview.com)",
+      "WebFetch(domain:x.ai)",
+      "Bash(claude config *)",
+      "Skill(update-config)"
+    ]
+  }
+}
